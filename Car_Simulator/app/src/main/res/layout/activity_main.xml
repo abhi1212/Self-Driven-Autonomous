@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.anikamuncc.car_simulator.MainActivity">
+
+    <!-- Top Layout of the display -->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!--Place lane view in relative layout-->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <!--Place your display metrics under metrics layout-->
+            <LinearLayout
+                android:id="@+id/metrics_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/display_metrics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Display Metrics" />
+
+                <TextView
+                    android:id="@+id/position"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Position (x,y)" />
+
+                <TextView
+                    android:id="@+id/velocity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Velocity" />
+
+                <TextView
+                    android:id="@+id/acceleration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Acceleration" />
+
+                <TextView
+                    android:id="@+id/engine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Engine RPM" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0-60 MPH Time" />
+
+                <TextView
+                    android:id="@+id/braking_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Braking Distance" />
+
+                <TextView
+                    android:id="@+id/slip_angle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Slip Angle" />
+
+                <TextView
+                    android:id="@+id/steering_angle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Steering Angle" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <!--Bottom Layout for the display-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/button_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/start" />
+
+        <Button
+            android:id="@+id/button_brake"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="33dp"
+            android:layout_toStartOf="@+id/button_start"
+            android:text="@string/brake" />
+
+        <Button
+            android:id="@+id/button_accelerate"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/button_brake"
+            android:layout_toEndOf="@+id/button_start"
+            android:text="@string/accelerate" />
+    </RelativeLayout>
+</LinearLayout>

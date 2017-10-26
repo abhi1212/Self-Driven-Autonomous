@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Car Simulator</string>
+    <string name="brake">Brake</string>
+    <string name="accelerate">Accelerate</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="metrics">Display Metrics</string>
+</resources>
