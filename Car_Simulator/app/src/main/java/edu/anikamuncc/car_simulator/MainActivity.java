@@ -3,7 +3,20 @@ package edu.anikamuncc.car_simulator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
+
+
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     double transmission_efficieny=0.7;
     double wheel_radius;
     int rpm;
-    double wheel_rotation_rate;
+    private double wheel_rotation_rate;
     double speed;
     double current_position_x;
     double current_position_y;
@@ -29,13 +42,27 @@ public class MainActivity extends AppCompatActivity {
     double prev_velocity;
     double new_velocity;
     int time=1;
+    double Crr=12.8;
+    double Cdrag=0.4257;
+    static int decide=0;
+    ImageView wheel;
+    double mCurrAngle = 0;
+    double mPrevAngle = 0;
+    ImageView bask;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Views mView;
+        Button btnAnimation;
+        ImageView image;
+        ImageView image1;
+        //mView =(Views) findViewById(R.id.View);
+       // Views vv= new Views(null,null);
         final Button bt_start= (Button) findViewById(R.id.button_start);
         Button bt_accelerate = (Button) findViewById(R.id.button_accelerate);
         Button bt_brake = (Button) findViewById(R.id.button_brake);
@@ -45,59 +72,115 @@ public class MainActivity extends AppCompatActivity {
         TextView engine_rpm = (TextView) findViewById(R.id.engine);
         TextView mph_time = (TextView) findViewById(R.id.time);
         TextView braking_distance = (TextView) findViewById(R.id.braking_distance);
-        TextView slip_angle = (TextView) findViewById(R.id.slip_angle);
+        final TextView slip_angle = (TextView) findViewById(R.id.slip_angle);
         TextView steering_angle = (TextView) findViewById(R.id.steering_angle);
 
 
 
+        wheel=(ImageView)findViewById(R.id.wheelimage);
+        //wheel.setOnClickListener(new View.OnClickListener() {
 
+        wheel.setOnTouchListener(new OnTouchListener()
+        {
 
-        bt_start.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                final float xc = wheel.getWidth() / 2;
+                final float yc = wheel.getHeight() / 2;
 
-                if(flag== false)
-                {
-                    bt_start.setText("Stop");
-                    flag=true;
+                final float x = event.getX();
+                final float y = event.getY();
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        wheel.clearAnimation();
+                        mCurrAngle = Math.toDegrees(Math.atan2(x - xc, yc - y));
+                        break;
+                    }
+                    case MotionEvent.ACTION_MOVE: {
+                        mPrevAngle = mCurrAngle;
+                        mCurrAngle = Math.toDegrees(Math.atan2(x - xc, yc - y));
+                        animate(mPrevAngle, mCurrAngle, 0);
+                        System.out.println(mCurrAngle);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP : {
+                        mPrevAngle = mCurrAngle = 0;
+                        break;
+                    }
                 }
-                else
-                {
-                    flag=false;
-                    bt_start.setText("Start");
+                return true;
+            }
+
+        });
+
+
+
+
+
+            bt_start.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (flag == false) {
+                        bt_start.setText("Stop");
+                        decide = 0;
+                        flag = true;
+                    } else {
+                        flag = false;
+                        bt_start.setText("Start");
+                        decide = 1;
+                    }
+
                 }
-
-            }
-        });
+            });
 
 
+            bt_accelerate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        bt_accelerate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    decide = 0;
+                    slip_angle.setText("dda");
 
-            }
-        });
+                }
+            });
 
 
-        bt_brake.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+            bt_brake.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
 
+                }
+            });
 
+        }
+
+
+    private void animate(double fromDegrees, double toDegrees, long durationMillis) {
+        final RotateAnimation rotate = new RotateAnimation((float) fromDegrees, (float) toDegrees,
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        rotate.setDuration(durationMillis);
+        rotate.setFillEnabled(true);
+        rotate.setFillAfter(true);
+        wheel.startAnimation(rotate);
+        System.out.println(mCurrAngle);
     }
+
+
+
+
 }
 
 
-    protected void Longitudnalforce()
+
+
+  /*  protected void Longitudnalforce()
     {
-
-
 
 
 
@@ -153,7 +236,8 @@ public class MainActivity extends AppCompatActivity {
     protected void Updateposition() {
 
         new_velocity = prev_velocity + (acceleraion * time);
-        
+
+
 
 
     }
@@ -166,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
+*/
 
 
 
@@ -181,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        }
 
 
 

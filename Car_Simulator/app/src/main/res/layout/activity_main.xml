@@ -23,10 +23,13 @@
             android:weightSum="2">
 
             <!--Place lane view in relative layout-->
-            <RelativeLayout
+            <edu.anikamuncc.car_simulator.Views
+                android:id="@+id/View"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
+
+
 
             <!--Place your display metrics under metrics layout-->
             <LinearLayout
@@ -122,5 +125,13 @@
             android:layout_alignTop="@+id/button_brake"
             android:layout_toEndOf="@+id/button_start"
             android:text="@string/accelerate" />
+
+        <ImageView
+            android:id="@+id/wheelimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:srcCompat="@drawable/steering"
+            android:layout_centerVertical="true"
+            android:layout_alignEnd="@+id/button_accelerate" />
     </RelativeLayout>
 </LinearLayout>
