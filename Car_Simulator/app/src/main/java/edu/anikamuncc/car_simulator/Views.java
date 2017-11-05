@@ -11,9 +11,12 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+
+import static edu.anikamuncc.car_simulator.MainActivity.choose;
 import static edu.anikamuncc.car_simulator.MainActivity.decide;
 
 /**
@@ -60,6 +63,7 @@ public class Views extends View {
     public Views(Context context) {
         super(context);
 
+
         init(null); //called from all the constructors
 
         car_x = 50; //our locations updated
@@ -70,6 +74,7 @@ public class Views extends View {
 
     public Views(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
 
         init(attrs);
 
@@ -120,20 +125,26 @@ public class Views extends View {
 
         //Object rect used for the setup position and size for our square
 
-        mRectSquare2.left = 0;
-        mRectSquare2.top = 0;
-        mRectSquare2.right = 470 + mRectSquare2.left;
-        mRectSquare2.bottom = mRectSquare2.top + 610;
+        //below are coordinate points for corners of the black square
 
-        mRectSquare.left = 50;
-        mRectSquare.top = 50;
-        mRectSquare.right = 380 + mRectSquare.left;
-        mRectSquare.bottom = mRectSquare.top + 510;
+        mRectSquare2.left = 0; //x = 0
+        mRectSquare2.top = 0; //y = 0
+        mRectSquare2.right = 470 + mRectSquare2.left; //x = 470
+        mRectSquare2.bottom = mRectSquare2.top + 610; //y = 610
 
-        mRectSquare1.left = 110;
-        mRectSquare1.top = 110;
-        mRectSquare1.right = 330 + mRectSquare.left;
-        mRectSquare1.bottom = mRectSquare.top + 470;
+        //below are coordinate points for corners of the grey square
+
+        mRectSquare.left = 50; // x = 50
+        mRectSquare.top = 50; // y = 50
+        mRectSquare.right = 380 + mRectSquare.left; // x = 430
+        mRectSquare.bottom = mRectSquare.top + 510; // y = 560
+
+        //below are coordinate points for corners of the green square
+
+        mRectSquare1.left = 110; // x = 110
+        mRectSquare1.top = 110; // y = 110
+        mRectSquare1.right = 330 + mRectSquare.left; // x = 440
+        mRectSquare1.bottom = mRectSquare.top + 470; //  y = 580
 
         mPaintSquare2.setColor(Color.BLACK);
 
@@ -166,35 +177,69 @@ public class Views extends View {
         matrix.postRotate(90);
         Bitmap bmpBowRotated = Bitmap.createBitmap(car_bm, 0, 0, car_bm.getWidth(), car_bm.getHeight(), matrix, false);
 
-
-        if (car_x <= 50) {
-
-            canvas.drawBitmap(car_bm, car_x, car_y, null);
-            car_y = car_y - y_dir;
-
-        }
-
-        if (car_y <= 50) {
-
-            canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-            car_x = car_x + x_dir;
-
-        }
-
-        if (car_x >= 450-(carHeight+24)) {
-
-            canvas.drawBitmap(car_bm, car_x, car_y, null);
-            car_y = car_y + y_dir;
-        }
+if(choose==0) {
 
 
-        if (car_y >= 600-(carWidth+50)) {
+    if(car_x>= 470)
+    {
+        car_x=100;
+        car_y=100;
+    }
 
-            canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-            car_x = car_x - x_dir;
-        }
+    if(car_x<=0)
+    {
+        car_x=100;
+        car_y=100;
+    }
+    if(car_y>=610)
+    {
+        car_x=100;
+        car_y=100;
+    }
+    if(car_y<=0)
+    {
+        car_y=10;
+        car_x=10;
+    }
 
+
+
+
+    if (car_x <= 50) {
+
+        canvas.drawBitmap(car_bm, car_x, car_y, null);
+        car_y = car_y - y_dir;
+
+    }
+
+    if (car_y <= 50) {
+
+        canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
+        car_x = car_x + x_dir;
+
+    }
+
+    if (car_x >= 450 - (carHeight + 24)) {
+
+        canvas.drawBitmap(car_bm, car_x, car_y, null);
+        car_y = car_y + y_dir;
+
+        //car_x=car_x+1;                                              //changed code
+    }
+
+
+
+    if (car_y >= 600 - (carWidth + 50)) {
+
+        canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
+        car_x = car_x - x_dir;
+    }
+}
         if(decide==0) {
+            //Log.d("tag1","inside decide 0");
+            System.out.println("Car_x is"+car_x);
+            System.out.println("Car_y is"+car_y);
+
             invalidate(); //allows us to draw the Bitmap map again and again
             //clears everything is done in this method at the very end, Android then repeats itself
             //the x and y coordinates remember there values so they can be incremented
@@ -204,11 +249,35 @@ public class Views extends View {
 
 
 
-    public  void inval()
+    public  void inval(double angle)
     {
-         invalidate();
+
+
+        if(angle>20 && angle<=45)
+        {
+            //Log.d("tag1","inside if");
+            car_x= car_x+10;
+            car_y= car_y+10;
+            System.out.println("Car_x after turn is"+car_x);
+            System.out.println("Car_y after turn is"+car_y);
+
+        }
+
+
+
+
 
     }
+
+
+
+
+
+
+
+
+
+
 
 
 }

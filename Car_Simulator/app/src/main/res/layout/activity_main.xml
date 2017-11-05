@@ -116,6 +116,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="33dp"
             android:layout_toStartOf="@+id/button_start"
+            android:enabled="false"
             android:text="@string/brake" />
 
         <Button
@@ -124,14 +125,17 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/button_brake"
             android:layout_toEndOf="@+id/button_start"
+            android:enabled="false"
             android:text="@string/accelerate" />
 
         <ImageView
             android:id="@+id/wheelimage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            card_view:srcCompat="@drawable/steering"
+            android:layout_alignEnd="@+id/button_accelerate"
             android:layout_centerVertical="true"
-            android:layout_alignEnd="@+id/button_accelerate" />
+
+            android:visibility="invisible"
+            card_view:srcCompat="@drawable/steering" />
     </RelativeLayout>
 </LinearLayout>
