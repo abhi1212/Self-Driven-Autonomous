@@ -50,7 +50,7 @@ public class Views extends View {
 
     int x_dir, y_dir;
 
-    int carHeight, carWidth;
+    int carHeight, carWidth;    //Car_height is 10 and car_width is 5.
 
     Button btnAnimation;
 
@@ -80,8 +80,8 @@ public class Views extends View {
 
         car_x = 50; //our locations updated
         car_y = 500;
-        x_dir = 8;
-        y_dir = 8;
+        x_dir = 2;
+        y_dir = 2;
     }
 
     public Views(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -91,8 +91,8 @@ public class Views extends View {
 
         car_x = 50; //our locations updated
         car_y = 500;
-        x_dir = 8;
-        y_dir = 8;
+        x_dir = 2;
+        y_dir = 2;
     }
 
     @SuppressLint("NewApi")
@@ -103,8 +103,34 @@ public class Views extends View {
 
         car_x = 50; //our locations updated
         car_y = 500;
-        x_dir = 8;
-        y_dir = 8;
+        x_dir = 2;
+        y_dir = 2;
+    }
+
+
+    public int getX_dir() {
+        return x_dir;
+    }
+
+    public void setX_dir(int x_dir) {
+        this.x_dir = x_dir;
+    }
+
+    public int getY_dir() {
+        return y_dir;
+    }
+
+    public void setY_dir(int y_dir) {
+        this.y_dir = y_dir;
+    }
+
+
+    public void setCar_x(int car_x) {
+        this.car_x = car_x;
+    }
+
+    public void setCar_y(int car_y) {
+        this.car_y = car_y;
     }
 
     private void init(@Nullable AttributeSet set) {
@@ -127,6 +153,7 @@ public class Views extends View {
 
         //below are coordinate points for corners of the black square
 
+       // System.out.println("Car Height and Car width is "+carHeight+" "+ carWidth);
         mRectSquare2.left = 0; //x = 0
         mRectSquare2.top = 0; //y = 0
         mRectSquare2.right = 470 + mRectSquare2.left; //x = 470
@@ -136,15 +163,15 @@ public class Views extends View {
 
         mRectSquare.left = 50; // x = 50
         mRectSquare.top = 50; // y = 50
-        mRectSquare.right = 380 + mRectSquare.left; // x = 430
+        mRectSquare.right = 380 + mRectSquare.left-10; // x = 430
         mRectSquare.bottom = mRectSquare.top + 510; // y = 560
 
         //below are coordinate points for corners of the green square
 
         mRectSquare1.left = 110; // x = 110
         mRectSquare1.top = 110; // y = 110
-        mRectSquare1.right = 330 + mRectSquare.left; // x = 440
-        mRectSquare1.bottom = mRectSquare.top + 470; //  y = 580
+        mRectSquare1.right = 330 + mRectSquare.left-20; // x = 360
+        mRectSquare1.bottom = mRectSquare.top + 450; //  y = 500
 
         mPaintSquare2.setColor(Color.BLACK);
 
@@ -182,63 +209,101 @@ if(choose==0) {
 
     if(car_x>= 470)
     {
-        car_x=100;
-        car_y=100;
+        //restart();
     }
 
     if(car_x<=0)
     {
-        car_x=100;
-        car_y=100;
+        //restart();
     }
     if(car_y>=610)
     {
-        car_x=100;
-        car_y=100;
+        //restart();
     }
     if(car_y<=0)
     {
-        car_y=10;
-        car_x=10;
+        //restart();
+    }
+
+
+    if(car_x>=50 && car_x<110) //
+    {
+
+
+        if(car_y<=(110) && car_y>50) //
+        {
+            canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
+            car_x = car_x + x_dir;
+
+        }
+
+        else if(car_y>(110-carHeight) && car_y<500+carHeight)
+        {
+            canvas.drawBitmap(car_bm, car_x, car_y, null);
+            car_y = car_y - y_dir;
+
+        }
+
+        else if(car_y>=500+carHeight && car_y<560)            //Upper left //commented
+        {
+
+            canvas.drawBitmap(car_bm, car_x, car_y, null);
+            car_y = car_y - y_dir;
+
+        }
+
+
+
+
+    }
+
+    if(car_x>110-carHeight && car_x<=(360))          //Upper right lane
+    {
+        if(car_y<=110+carHeight && car_y>=50) {
+
+            canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
+            car_x = car_x + x_dir;
+        }
+        else if (car_y>=500+carHeight && car_y<560)
+        {
+            canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
+            car_x = car_x - x_dir;
+
+        }
+
+    }
+
+
+    if(car_x>360 && carHeight<420)            //Going Down
+    {
+        if(car_y<110 && car_y>=50) {
+
+            canvas.drawBitmap(car_bm, car_x, car_y, null);
+            car_y = car_y + y_dir;
+        }
+
+        else if(car_y>=110 && car_y<500+carHeight)
+        {
+            canvas.drawBitmap(car_bm, car_x, car_y, null);
+            car_y = car_y + y_dir;
+
+        }
+
+
+        else if(car_y>=500 && car_y<560)
+        {
+            canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
+            car_x = car_x - x_dir;
+
+        }
     }
 
 
 
 
-    if (car_x <= 50) {
-
-        canvas.drawBitmap(car_bm, car_x, car_y, null);
-        car_y = car_y - y_dir;
-
-    }
-
-    if (car_y <= 50) {
-
-        canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-        car_x = car_x + x_dir;
-
-    }
-
-    if (car_x >= 450 - (carHeight + 24)) {
-
-        canvas.drawBitmap(car_bm, car_x, car_y, null);
-        car_y = car_y + y_dir;
-
-        //car_x=car_x+1;                                              //changed code
-    }
-
-
-
-    if (car_y >= 600 - (carWidth + 50)) {
-
-        canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-        car_x = car_x - x_dir;
-    }
 }
         if(decide==0) {
             //Log.d("tag1","inside decide 0");
-            System.out.println("Car_x is"+car_x);
-            System.out.println("Car_y is"+car_y);
 
             invalidate(); //allows us to draw the Bitmap map again and again
             //clears everything is done in this method at the very end, Android then repeats itself
@@ -249,19 +314,74 @@ if(choose==0) {
 
 
 
-    public  void inval(double angle)
-    {
+    public  void inval(double angle) {
 
 
-        if(angle>20 && angle<=45)
+        int cary1;
+        int carx1;
+        int lane_selector = 0;
+        lane_selector = (int) angle / 15;
+        System.out.println("Lane selector is "+lane_selector);
+
+       if(car_x>=110 && car_x<=360)
+       {
+
+            if(car_y>50 && car_y<=110)
+            {
+                cary1=car_y;
+                car_y= car_y+lane_selector;
+                if(car_y>110 || car_y<50)
+                {
+                    car_y=cary1;
+                }
+            }
+
+
+            else if(car_y>500 && car_y<=560)
+            {
+                cary1=car_y;
+                car_y= car_y+lane_selector;
+                if(car_y<500 || car_y>560)
+                {
+                    car_y=cary1;
+                }
+            }
+
+
+       }
+
+
+       if(car_x>=50 && car_x<110)
+       {
+           carx1=car_x;
+           car_x= car_x+lane_selector;
+           if(car_x<50 || car_x>110 )
+           {
+               car_x=carx1;
+           }
+
+       }
+
+
+       if(car_x>360 && car_x<=420)
         {
-            //Log.d("tag1","inside if");
-            car_x= car_x+10;
-            car_y= car_y+10;
-            System.out.println("Car_x after turn is"+car_x);
-            System.out.println("Car_y after turn is"+car_y);
+            carx1=car_x;
+            car_x= car_x+lane_selector;
+            if(car_x<360 || car_x>420 )
+            {
+                car_x=carx1;
+            }
+
 
         }
+
+
+
+    }
+
+
+
+
 
 
 
@@ -280,8 +400,74 @@ if(choose==0) {
 
 
 
+
+
+        /*
+
+
+        lane_selector*carWidth;
+        //Check whther in x or y;
+        //Boundary condition
+
+
+                angle lega
+
+            carx  is between 50-110 to upar
+            naitoh
+
+               /*
+
+
+
+        if(angle>0 && angle<=25) {
+
+            //Log.d("tag1","insid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            car_x = car_x + 10;
+            car_y = car_y + 10;
+            System.out.println("Car_x after turn is" + car_x);
+            System.out.println("Car_y after turn is" + car_y);
+
+        }
+
+    }
+
+
+
+    public void restart()
+    {
+        car_x=100;
+        car_y=100;
+    }
+
+
+
+
+
+
+
+
 }
 
 
-
+*/
 

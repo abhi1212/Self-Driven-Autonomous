@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
     double mCurrAngle = 0;
     static int choose=0;
     double mPrevAngle = 0;
+    int accel_steps=0;
+    int brake_steps=0;
+    int brake_x=0;
+    int brake_y=0;
     ImageView bask;
 
     Views mView;
@@ -136,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                         decide = 0;
                         flag = true;
                         bt_accelerate.setEnabled(true);
+                        accel_steps=1;
                         bt_brake.setEnabled(true);
                         wheel.setVisibility(View.VISIBLE);
                         mView.invalidate();
@@ -146,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
                         bt_start.setText("Start");
                         bt_accelerate.setEnabled(false);
                         bt_brake.setEnabled(false);
+                        mView.setCar_x(50);
+                        mView.setCar_y(500);
                         wheel.setVisibility(View.INVISIBLE);
                         mView.invalidate();
 
@@ -161,7 +168,33 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    choose=0;
+                    accel_steps=accel_steps+1;
+                    brake_steps=0;
+                    if(accel_steps==1)
+                    {
+                        mView.setX_dir(2);
+                        mView.setY_dir(2);
+                    }
+
+                    if(accel_steps==2)
+                    {
+                        mView.setX_dir(4);
+                        mView.setY_dir(4);
+                    }
+
+                    if(accel_steps==3)
+                    {
+                        mView.setX_dir(6);
+                        mView.setY_dir(6);
+                    }
+                    if(accel_steps>=4)
+                    {
+                        mView.setX_dir(8);
+                        mView.setY_dir(8);
+                    }
+
+
+
 
 
                 }
@@ -172,8 +205,39 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    choose=1;
+                mView.getX_dir();
+                mView.getY_dir();
+                brake_steps=brake_steps+1;
+                if(brake_steps==1)
+                {
+                    brake_x=  mView.getX_dir()/2;
+                    brake_y=  mView.getY_dir()/2;
+                    if(brake_x==4)
+                    {
+                        accel_steps=3;
+                    }
+                    else if(brake_x==3)
+                    {
+                        accel_steps=2;
+                    }
+                    else
+                    {
+                        accel_steps=1;
+                    }
 
+                    mView.setX_dir(brake_x);
+                    mView.setY_dir(brake_y);
+
+
+                }
+                if(brake_steps>=2)
+                {
+                    brake_x= 0;
+                    brake_y= 0;
+                    mView.setX_dir(brake_x);
+                    mView.setY_dir(brake_y);
+                    accel_steps=1;
+                }
 
                 }
             });
