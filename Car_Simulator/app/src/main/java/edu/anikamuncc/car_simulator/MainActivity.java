@@ -40,25 +40,27 @@ public class MainActivity extends AppCompatActivity {
     double current_position_y;
     double last_position_x;
     double last_position_y;
-    double acceleraion;
+    double acceleration;
     double prev_velocity;
     double new_velocity;
     int time=1;
     double Crr=12.8;
     double Cdrag=0.4257;
     static int decide=1;
+    double mph1;
     ImageView wheel;
     double mCurrAngle = 0;
     static int choose=0;
     double mPrevAngle = 0;
-    int accel_steps=0;
+   static int accel_steps=0;
     int brake_steps=0;
     int brake_x=0;
     int brake_y=0;
     ImageView bask;
+    TextView velocity;
+    TextView display_metrics;
 
     Views mView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,20 +75,22 @@ public class MainActivity extends AppCompatActivity {
         final Button bt_start= (Button) findViewById(R.id.button_start);
         final Button bt_accelerate = (Button) findViewById(R.id.button_accelerate);
         final Button bt_brake = (Button) findViewById(R.id.button_brake);
-        final TextView position = (TextView) findViewById(R.id.position);
-        TextView display_metrics = (TextView) findViewById(R.id.display_metrics);
-        TextView velocity = (TextView) findViewById(R.id.velocity);
-        TextView engine_rpm = (TextView) findViewById(R.id.engine);
-        TextView mph_time = (TextView) findViewById(R.id.time);
-        TextView braking_distance = (TextView) findViewById(R.id.braking_distance);
+        display_metrics = (TextView) findViewById(R.id.display_metrics);
+        velocity = (TextView) findViewById(R.id.velocity);
+        final TextView engine_rpm = (TextView) findViewById(R.id.engine);
+        final TextView mph_time = (TextView) findViewById(R.id.time);
+        final TextView braking_distance = (TextView) findViewById(R.id.braking_distance);
         final TextView slip_angle = (TextView) findViewById(R.id.slip_angle);
-        TextView steering_angle = (TextView) findViewById(R.id.steering_angle);
+        final TextView steering_angle = (TextView) findViewById(R.id.steering_angle);
+        final TextView acceleration1= (TextView) findViewById(R.id.acceleration);
+        final TextView position = (TextView) findViewById(R.id.position);
+
+
         mView = (Views) findViewById(R.id.View);  //Calling the object of view which is created.
-
-
         wheel=(ImageView)findViewById(R.id.wheelimage);
         //wheel.setOnClickListener(new View.OnClickListener() {
 
+       // setDisplay();
         wheel.setOnTouchListener(new OnTouchListener()
         {
 
@@ -112,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                         //Log.d("move","move");
 
                         animate(mPrevAngle, mCurrAngle, 0);
-                        System.out.println(mCurrAngle);
+                        //System.out.println(mCurrAngle);
                         mView.inval(mCurrAngle);
                         break;
                     }
@@ -126,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
 
 
 
@@ -174,23 +177,28 @@ public class MainActivity extends AppCompatActivity {
                     {
                         mView.setX_dir(2);
                         mView.setY_dir(2);
+                        mph1=4;
+
                     }
 
                     if(accel_steps==2)
                     {
                         mView.setX_dir(4);
                         mView.setY_dir(4);
+                        mph1=2;
                     }
 
                     if(accel_steps==3)
                     {
                         mView.setX_dir(6);
                         mView.setY_dir(6);
+                        mph1=1.7;
                     }
                     if(accel_steps>=4)
                     {
                         mView.setX_dir(8);
                         mView.setY_dir(8);
+                        mph1=1.4;
                     }
 
 
@@ -242,7 +250,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+
+
+
+
+
         }
+
+
+
+
+
+
 
 
     private void animate(double fromDegrees, double toDegrees, long durationMillis) {
@@ -260,6 +279,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
