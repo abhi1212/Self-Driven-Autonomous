@@ -334,12 +334,16 @@ public class Views extends View {
         carHeight2 = option2.outHeight;
         carWidth2 = option2.outWidth;
 
-        BitmapFactory.Options option4 = new BitmapFactory.Options(); //how dimensions of image is found
-        option4.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(getResources(), R.drawable.car4, option4);
+        BitmapFactory.Options option3 = new BitmapFactory.Options(); //how dimensions of image is found
+        option3.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(getResources(), R.drawable.car4, option1);
         carHeight3 = option1.outHeight;
         carWidth3 = option1.outWidth;
 
+
+        canvas.drawBitmap(car2_bm, car2_x, car2_y, null);
+        canvas.drawBitmap(car3_bm, car3_x, car3_y, null);
+        canvas.drawBitmap(car4_bm, car4_x, car4_y, null);
 
 //        ImageView img1 = (ImageView)findViewById(R.drawable.car);
 //        matrix.postRotate(-90);
@@ -353,14 +357,6 @@ public class Views extends View {
         Matrix matrix3 = new Matrix();
         matrix3.postRotate(90);
         Bitmap bmpBowRotated3 = Bitmap.createBitmap(car3_bm, 0, 0, car3_bm.getWidth(), car3_bm.getHeight(), matrix3, false);
-
-        Matrix matrix2 = new Matrix();
-        matrix2.postRotate(90);
-        Bitmap bmpBowRotated2 = Bitmap.createBitmap(car2_bm, 0, 0, car2_bm.getWidth(), car2_bm.getHeight(), matrix2, false);
-
-        Matrix matrix4 = new Matrix();
-        matrix4.postRotate(90);
-        Bitmap bmpBowRotated4 = Bitmap.createBitmap(car4_bm, 0, 0, car4_bm.getWidth(), car4_bm.getHeight(), matrix4, false);
 
 
         //code below shows car moving from 1st to 2nd lane, and staying in 2nd lane
@@ -446,29 +442,29 @@ public class Views extends View {
         // Left Lane
 
 
-        if(car_x>=60 && car_x<=85-carHeight) //
+        if(car3_x>=60 && car3_x<=85-carHeight) //
         {
 
 
-            if(car_y<(85-carHeight) && car_y>=60) // Rotate right
+            if(car3_y<(85-carHeight) && car3_y>=60) // Rotate right
             {
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x + x_dir;
+                canvas.drawBitmap(bmpBowRotated3, car3_x, car3_y, null);
+                car3_x = car3_x + x_dir;
 
             }
 
-            else if(car_y>=(85-carHeight) && car_y<520+carHeight) //Go Up more to take a right
+            else if(car3_y>=(85-carHeight) && car3_y<520+carHeight) //Go Up more to take a right
             {
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y - y_dir;
+                canvas.drawBitmap(car3_bm, car3_x, car3_y, null);
+                car3_y = car3_y - y_dir;
 
             }
 
-            else if(car_y>=520+carHeight && car_y<=550)            //Upper left //commented
+            else if(car3_y>=520+carHeight && car3_y<=550)            //Upper left //commented
             {
 
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y - y_dir;
+                canvas.drawBitmap(car3_bm, car3_x, car3_y, null);
+                car3_y = car3_y - y_dir;
 
             }
 
@@ -477,208 +473,46 @@ public class Views extends View {
 
         //middle lane
 
-        if(car_x>85-carHeight && car_x<(380))          //Upper right lane
+        if(car3_x>85-carHeight && car3_x<(380))          //Upper right lane
         {
-            if(car_y<=90 && car_y>=60) {      //Use + also carheight if needed
+            if(car3_y<=90 && car3_y>=60) {      //Use + also carheight if needed
 
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x + x_dir;
+                canvas.drawBitmap(bmpBowRotated3, car3_x, car3_y, null);
+                car3_x = car3_x + x_dir;
             }
-            else if (car_y>=520+carHeight && car_y<=550)
+            else if (car3_y>=520+carHeight && car3_y<=550)
             {
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x - x_dir;
+                canvas.drawBitmap(bmpBowRotated3, car3_x, car3_y, null);
+                car3_x = car3_x - x_dir;
 
             }
 
         }
 
 
-        if(car_x>=380 && car_x<=410)            //Going Down use  car height if u need to go moe right
+        if(car3_x>=380 && car3_x<=410)            //Going Down use  car height if u need to go moe right
         {
-            if(car_y<=90 && car_y>=60) {
+            if(car3_y<=90 && car3_y>=60) {
 
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y + y_dir;
+                canvas.drawBitmap(car3_bm, car3_x, car3_y, null);
+                car3_y = car3_y + y_dir;
             }
 
-            else if(car_y>=90 && car_y<520+carHeight)
+            else if(car3_y>=90 && car3_y<520+carHeight)
             {
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y + y_dir;
+                canvas.drawBitmap(car3_bm, car3_x, car3_y, null);
+                car3_y = car3_y + y_dir;
 
             }
 
 
-            else if(car_y>=520+carHeight && car_y<=550)
+            else if(car3_y>=520 && car3_y<550)
             {
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x - x_dir;
+                canvas.drawBitmap(bmpBowRotated3, car3_x, car3_y, null);
+                car3_x = car3_x - x_dir;
 
             }
         }
-
-        //Lane 3
-
-
-            //left lane
-
-
-        if(car_x>=30 && car_x<=55-carHeight) //
-        {
-
-
-            if(car_y<(55-carHeight) && car_y>=30) // Rotate right
-            {
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x + x_dir;
-
-            }
-
-            else if(car_y>=(55-carHeight) && car_y<550+carHeight) //Go Up more to take a right
-            {
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y - y_dir;
-
-            }
-
-            else if(car_y>=550+carHeight && car_y<=580)            //Upper left //commented
-            {
-
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y - y_dir;
-
-            }
-
-        }
-
-
-        //middle lane
-
-        if(car_x>55-carHeight && car_x<(410))          //Upper right lane
-        {
-            if(car_y<=60 && car_y>=30) {      //Use + also carheight if needed
-
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x + x_dir;
-            }
-            else if (car_y>=550+carHeight && car_y<=580)
-            {
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x - x_dir;
-
-            }
-
-        }
-
-
-        if(car_x>=410 && car_x<=440)            //Going Down use  car height if u need to go moe right
-        {
-            if(car_y<=60 && car_y>=30) {
-
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y + y_dir;
-            }
-
-            else if(car_y>=60 && car_y<550+carHeight)
-            {
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y + y_dir;
-
-            }
-
-
-            else if(car_y>=550+carHeight && car_y<580)
-            {
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x - x_dir;
-
-            }
-        }
-
-        //Lane 4
-
-
-            // Left Lane
-
-
-        if(car_x>=0 && car_x<=25-carHeight) //
-        {
-
-
-            if(car_y<(25-carHeight) && car_y>=0) // Rotate right
-            {
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x + x_dir;
-
-            }
-
-            else if(car_y>=(25-carHeight) && car_y<580+carHeight) //Go Up more to take a right
-            {
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y - y_dir;
-
-            }
-
-            else if(car_y>=580+carHeight && car_y<=610)            //Upper left //commented
-            {
-
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y - y_dir;
-
-            }
-
-        }
-
-
-        //middle lane
-
-        if(car_x>25-carHeight && car_x<(440))          //Upper right lane
-        {
-            if(car_y<=30 && car_y>=0) {      //Use + also carheight if needed
-
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x + x_dir;
-            }
-            else if (car_y>=580+carHeight && car_y<=610)
-            {
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x - x_dir;
-
-            }
-
-        }
-
-
-        if(car_x>=440 && car_x<=470)            //Going Down use  car height if u need to go moe right
-        {
-            if(car_y<=30 && car_y>=0) {
-
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y + y_dir;
-            }
-
-            else if(car_y>=30 && car_y<580+carHeight)
-            {
-                canvas.drawBitmap(car_bm, car_x, car_y, null);
-                car_y = car_y + y_dir;
-
-            }
-
-
-            else if(car_y>=580+carHeight && car_y<610)
-            {
-                canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
-                car_x = car_x - x_dir;
-
-            }
-        }
-
-
-
-
-
-
 
 
 
@@ -697,38 +531,71 @@ public class Views extends View {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public  void inval(double angle) {
 
 
         int cary1;
         int carx1;
         int lane_selector = 0;
-        lane_selector = (int) angle / 8;
+        lane_selector = (int) angle / 15;
         //System.out.println("Lane selector is "+lane_selector);
 
-        //Mkae sure the end connections and lane_selector value is right.
-
-        if(car_x>=120 && car_x<=350)       //New change
+        if(car_x>=110-carHeight && car_x<=360)       //New change
         {
 
-            if(car_y>=90 && car_y<=120)
+            if(car_y>50 && car_y<=110)
             {
                 cary1=car_y;
                 car_y= car_y+lane_selector;
-                System.out.println("It is here");
-
-               /* if(car_y>110 || car_y<50-carHeight)  //New Change
+                if(car_y>110 || car_y<50-carHeight)  //New Change
                 {
                     setpositionup();
-                }*/
+                }
             }
 
 
-            if(car_y>=490 && car_y<=520)
+            else if(car_y>500 && car_y<=560)
             {
                 cary1=car_y;
-                car_y= car_y+20;
-                if(car_y<490 || car_y>=610)
+                car_y= car_y-lane_selector;
+                if(car_y<500 || car_y>=560)
                 {
                     setpositiondown();
                     System.out.println("Entering set down");
@@ -739,7 +606,7 @@ public class Views extends View {
         }
 
 
-       /* if(car_x>=90 && car_x<120)
+        if(car_x>=50 && car_x<110)
         {
             carx1=car_x;
             car_x= car_x+lane_selector;
@@ -751,7 +618,7 @@ public class Views extends View {
         }
 
 
-       else if(car_x>360 && car_x<=420)
+        if(car_x>360 && car_x<=420)
         {
             carx1=car_x;
             car_x= car_x+lane_selector;
@@ -763,7 +630,7 @@ public class Views extends View {
 
         }
 
-*/
+
 
     }
 
@@ -801,6 +668,7 @@ public class Views extends View {
 
 
 /*
+
  public void setDisplay()
     {
         position.setText(mView.getX_dir()+","+mView.getY_dir());
@@ -811,5 +679,6 @@ public class Views extends View {
         engine_rpm.setText(Double.toString(rpm1));
        // mph_time.setText();
         braking_distance.setText(brake_steps);
+
     }
  */
