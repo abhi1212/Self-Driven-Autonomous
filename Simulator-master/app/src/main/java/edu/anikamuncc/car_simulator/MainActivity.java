@@ -154,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
                         bt_start.setText("Start");
                         bt_accelerate.setEnabled(false);
                         bt_brake.setEnabled(false);
-                        mView.setCar_x(98);
-                        mView.setCar_y(488);
+                        mView.setCar_x(90);
+                        mView.setCar_y(490);
                         wheel.setVisibility(View.INVISIBLE);
                         mView.invalidate();
 

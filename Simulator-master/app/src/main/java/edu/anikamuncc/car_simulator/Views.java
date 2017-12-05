@@ -111,8 +111,8 @@ public class Views extends View {
         car3_y = 465;
         car2_x = 36;
         car2_y = 440;
-        car_x = 98;
-        car_y = 488;
+        car_x =  90;//98;
+        car_y =  490;  //488;
         car4_x = 8;
         car4_y = 420;
         x_dir = 1; //speed in which coordinates are changed
@@ -129,8 +129,8 @@ public class Views extends View {
         car3_y = 465;
         car2_x = 36;
         car2_y = 440;
-        car_x = 98;
-        car_y = 488;
+        car_x = 90;
+        car_y = 490;
         car4_x = 8;
         car4_y = 420;
         x_dir = 1; //speed in which coordinates are changed
@@ -146,8 +146,8 @@ public class Views extends View {
         car3_y = 465;
         car2_x = 36;
         car2_y = 440;
-        car_x = 98;
-        car_y = 488;
+        car_x = 90;
+        car_y = 490;
         car4_x = 8;
         car4_y = 420;
         x_dir = 1; //speed in which coordinates are changed
@@ -164,8 +164,8 @@ public class Views extends View {
         car3_y = 465;
         car2_x = 36;
         car2_y = 440;
-        car_x = 98;
-        car_y = 488;
+        car_x = 90;
+        car_y = 490;
         car4_x = 8;
         car4_y = 420;
         x_dir = 1; //speed in which coordinates are changed
@@ -366,25 +366,25 @@ public class Views extends View {
         //code below shows car moving from 1st to 2nd lane, and staying in 2nd lane
         //Condition for Lane 1.
 
-        if(car_x>=90 && car_x<=115-carHeight) //
+        if(car_x>=90 && car_x<=120-carWidth) //115-ca
         {
 
 
-            if(car_y<(115-carHeight) && car_y>=90) // Rotate right
+            if(car_y==90) // Rotate right
             {
                 canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
                 car_x = car_x + x_dir;
 
             }
 
-            else if(car_y>=(115-carHeight) && car_y<490+carHeight) //Go Up more to take a right
+            else if(car_y>90 && car_y<490) //Go Up more to take a right
             {
                 canvas.drawBitmap(car_bm, car_x, car_y, null);
                 car_y = car_y - y_dir;
 
             }
 
-            else if(car_y>=490+carHeight && car_y<=520)            //Upper left //commented
+            else if(car_y==490)            //Upper left //commented
             {
 
                 canvas.drawBitmap(car_bm, car_x, car_y, null);
@@ -580,7 +580,7 @@ public class Views extends View {
                 car_y = car_y + y_dir;
             }
 
-            else if(car_y>=60 && car_y<550+carHeight)
+            else if(car_y>=60 && car_y<=555+carHeight)
             {
                 canvas.drawBitmap(car_bm, car_x, car_y, null);
                 car_y = car_y + y_dir;
@@ -588,7 +588,7 @@ public class Views extends View {
             }
 
 
-            else if(car_y>=550+carHeight && car_y<580)
+            else if(car_y>555+carHeight && car_y<=580) //Changed
             {
                 canvas.drawBitmap(bmpBowRotated, car_x, car_y, null);
                 car_x = car_x - x_dir;
@@ -706,7 +706,8 @@ public class Views extends View {
         lane_selector = (int) angle / 8;
         //System.out.println("Lane selector is "+lane_selector);
 
-        //Mkae sure the end connections and lane_selector value is right.
+        //Make sure the end connections and lane_selector value is right.
+        //Conditions for the 1 rectangle.
 
         if(car_x>=120 && car_x<=350)       //New change
         {
@@ -714,7 +715,7 @@ public class Views extends View {
             if(car_y>=90 && car_y<=120)
             {
                 cary1=car_y;
-                car_y= car_y+lane_selector;
+                car_y= car_y-30;
                 System.out.println("It is here");
 
                /* if(car_y>110 || car_y<50-carHeight)  //New Change
@@ -727,11 +728,11 @@ public class Views extends View {
             if(car_y>=490 && car_y<=520)
             {
                 cary1=car_y;
-                car_y= car_y+20;
+                car_y= car_y+50;
                 if(car_y<490 || car_y>=610)
                 {
                     setpositiondown();
-                    System.out.println("Entering set down");
+                   // System.out.println("Entering set down");
                 }
             }
 
